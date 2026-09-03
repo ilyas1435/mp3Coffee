@@ -1,0 +1,339 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: YouTube to MP3 Converter API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: conversions
+    description: YouTube to MP3 conversion operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /conversions:
+    get:
+      operationId: listConversions
+      tags: [conversions]
+      summary: List all conversions
+      responses:
+        "200":
+          description: List of conversions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Conversion"
+    post:
+      operationId: createConversion
+      tags: [conversions]
+      summary: Start a conversion job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateConversionRequest"
+      responses:
+        "201":
+          description: Conversion job created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversion"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteAllConversions
+      tags: [conversions]
+      summary: Delete all converted files and records
+      responses:
+        "200":
+          description: All deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteAllResponse"
+  /conversions/download-all:
+    get:
+      operationId: downloadAllConversions
+      tags: [conversions]
+      summary: Download a ZIP of all completed conversions
+      responses:
+        "200":
+          description: ZIP file
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Nothing to download
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /playlist-info:
+    get:
+      operationId: getPlaylistInfo
+      tags: [conversions]
+      summary: Detect playlist tracks before starting a conversion
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Playlist info (or single-video info)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlaylistInfo"
+  /conversions/{id}:
+    get:
+      operationId: getConversion
+      tags: [conversions]
+      summary: Get a conversion job
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversion job
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Conversion"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /conversions/{id}/download:
+    get:
+      operationId: downloadConversion
+      tags: [conversions]
+      summary: Download converted MP3 or ZIP
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: File download
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /disk-space:
+    get:
+      operationId: getDiskSpace
+      tags: [conversions]
+      summary: Get disk space info
+      responses:
+        "200":
+          description: Disk space info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiskSpace"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Conversion:
+      type: object
+      properties:
+        id:
+          type: integer
+        youtubeUrl:
+          type: string
+        sourceUrls:
+          type: array
+          items:
+            type: string
+          description: Optional list of URLs to process together as one ZIP job.
+        title:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [pending, downloading, converting, zipping, done, error, cancelled]
+        statusLabel:
+          type: string
+          nullable: true
+        progress:
+          type: number
+          nullable: true
+        bitrate:
+          type: integer
+        bitrateType:
+          type: string
+          enum: [abr, vbr, cbr]
+        sampleRate:
+          type: integer
+        channels:
+          type: integer
+        speed:
+          type: number
+        isPlaylist:
+          type: boolean
+        itemCount:
+          type: integer
+          nullable: true
+        fileSizeBytes:
+          type: integer
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        error:
+          type: string
+          nullable: true
+      required:
+        - id
+        - youtubeUrl
+        - status
+        - bitrate
+        - bitrateType
+        - sampleRate
+        - channels
+        - isPlaylist
+        - createdAt
+    CreateConversionRequest:
+      type: object
+      properties:
+        youtubeUrl:
+          type: string
+        sourceUrls:
+          type: array
+          items:
+            type: string
+          description: Optional list of URLs to process together as one ZIP job.
+        bitrate:
+          type: integer
+          default: 16
+        bitrateType:
+          type: string
+          enum: [abr, vbr, cbr]
+          default: abr
+        sampleRate:
+          type: integer
+          default: 8000
+        channels:
+          type: integer
+          default: 1
+        speed:
+          type: number
+          default: 1.0
+        selectedItems:
+          type: array
+          items:
+            type: integer
+          description: For playlists - 0-based indices of tracks to include. Omit to process all.
+        audioLanguage:
+          type: string
+          default: original
+          description: Preferred audio track language code. Original selects the source track.
+        downloadServer:
+          type: string
+          default: auto
+          description: Download backend preference.
+      required:
+        - youtubeUrl
+    PlaylistInfo:
+      type: object
+      properties:
+        isPlaylist:
+          type: boolean
+        entries:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              url:
+                type: string
+            required: [id, title, url]
+      required:
+        - isPlaylist
+        - entries
+    DeleteAllResponse:
+      type: object
+      properties:
+        deleted:
+          type: integer
+      required:
+        - deleted
+    DiskSpace:
+      type: object
+      properties:
+        freeBytes:
+          type: integer
+        totalBytes:
+          type: integer
+        usedBytes:
+          type: integer
+        uploadsDirBytes:
+          type: integer
+      required:
+        - freeBytes
+        - totalBytes
+        - usedBytes
+        - uploadsDirBytes
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

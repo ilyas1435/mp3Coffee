@@ -1,0 +1,13 @@
+artifacts/api-server/uploads/415_playlist.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/470_bundle.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/485_playlist.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/486_playlist.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1090_playlist.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1095_islami_1502.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1097_أسامة_الواعظ.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1229_شيرلوك_هولمز_آرثر_كونان_دويل_بصوت_اسلام_عادل.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1249_Sharh_Nadhm_Saghir.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1250_شرح_الملخص_المفيد_لعارض_الجهل_وأثره_على_مسائل_العقيدة_والتوحيد.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1252_English_Learning_for_Curious_Minds_Podcast.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1253_English_Learning_for_Curious_Minds_Podcast.zip filter=lfs diff=lfs merge=lfs -text
+artifacts/api-server/uploads/1361_العلم_والايمان_الجزء_الثاني_د.مصطفى_محمود.zip filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,9 @@
+packages:
+  "framer-motion": "For smooth layout transitions and progress bars"
+  "date-fns": "For formatting timestamps"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility function to efficiently merge Tailwind CSS classes"
+
+notes:
+  - "Assuming /api/conversions is the base path for API as defined in openapi.yaml"
+  - "Polling is used to update conversion progress"

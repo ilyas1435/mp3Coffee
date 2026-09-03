@@ -1,0 +1,1 @@
+- [yt-dlp track selection](yt-dlp-track-selection.md) — keep YouTube audio selectors separate from non-YouTube format IDs and use language preference for original tracks.

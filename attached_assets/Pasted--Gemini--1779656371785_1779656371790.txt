@@ -1,0 +1,47 @@
+محادثة مع Gemini
+حولها لنص و نسقها وترجمها
+
+إليك تفريغ النص العربي المكتوب في الصورة وتنسيقه بوضوح، يليه الترجمة الإنجليزية الكاملة.
+
+أولاً: النص العربي (مُنسّق ومُفرّغ)
+قم بحذف خيار YouTube cookies، وقم بتحديث مكتبة Ytld.
+ثم أنشئ ميزة خيار للاختيار سيعرض التحميل من اليوتيوب، الخيار الافتراضي أن يكون تحميل مباشر، أو من سيرفرات Piped، أو أي سيرفر أنت تراه جيداً أضِفه في قائمة الخيارات.
+
+إصلاح مشكلة عند تحميل قائمة تشغيل: عندما ينطفئ السيرفر ويشتغل مرة أخرى يتم تحميل القائمة من البداية ولا يستكمل من نقطة الوقوف.
+
+وهناك مشكلة أنه أحياناً يعلّق ويقف بلا نهاية عند تحميل فيديو من قائمة التشغيل، فالعملية ككل تقف، أو وجد حل مثل تخطي الفيديو العالق أو محاولة تحميله من سيرفر آخر بشكل تلقائي.
+
+وأرجو تسريع عملية تحميل وتحويل قوائم التشغيل.
+
+اجعل عملية الرفع إلى موقع Archive في الخلفية، مع إظهارها مع النسبة المئوية وهكذا.
+
+اجعل اسم الملف على Archive هو نفسه اسم الملف في الموقع، لأن عند التجربة يكون الـ Title مختلف.
+
+أظهر أيقونة تعديل اسم الملف بجانب اسم الملف.
+
+قم بتحسين قائمة خيارات تحديد الكل وتحميل الكل وهكذا واظهرها بشكل دائم.
+
+في أسفل الموقع قم بإظهار رابط حساب Archive الذي تم ربطه، بحيث يسهل الدخول ورؤية الملفات.
+
+Second: English Translation
+Here is the professional translation of the development tasks and bug fixes listed in the image:
+
+Remove the "YouTube cookies" option, and update the yt-dlp (Ytld) library.
+Then, create a selection feature/dropdown for YouTube downloading. The default option should be "Direct Download", followed by "Piped Servers", or any other server you deem suitable to add to the options list.
+
+Fix the playlist download issue: When the server goes down and restarts, the playlist downloading starts all over again from the beginning instead of resuming from where it stopped.
+
+Fix the freezing issue: Sometimes, when downloading a video from a playlist, it hangs/freezes indefinitely, causing the entire process to stop. Please find a solution, such as automatically skipping the stuck video or attempting to download it from an alternative server.
+
+Please speed up the process of downloading and converting playlists.
+
+Make the upload process to the Archive website run in the background, while displaying its progress with a percentage, etc.
+
+Ensure that the file name on Archive matches the file name on the website, because testing showed that the "Title" changes or differs.
+
+Show an "Edit File Name" icon right next to the file name.
+
+Improve the "Select All" and "Download All" options menu, and make it permanently visible.
+
+At the bottom of the website, display the linked Archive account link, to make it easy to access and view the uploaded files.
+
